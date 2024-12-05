@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Coin Collector Plus</title>
+        <style>
+            button {
+            appearance: button;
+            backface-visibility: hidden;
+            background-color: #405cf5;
+            border-radius: 6px;
+            border-width: 0;
+            box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+            font-size: 100%;
+            height: 44px;
+            line-height: 1.15;
+            margin: 12px 0 0;
+            outline: none;
+            overflow: hidden;
+            padding: 0 25px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            transform: translateZ(0);
+            transition: all .2s, box-shadow .08s ease-in;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 50%;
+        }
+
+        button:disabled {
+            cursor: default;
+        }
+
+        button:focus {
+            box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+        }
+
+        button:hover {
+            background-color: #E01E79;
+            border: 2px solid white;
+            font-weight: 500;
+        }
+
+        .right-align{
+            position: absolute;
+            left: 30%;
+            top:  10%;
+            width: 25%;
+        }
+
+        .coin{
+            position: absolute;
+            left: 50%;
+            top:  10%;
+            width: 25%;
+        }
+
+        #file-name-label{
+            appearance: none;
+            border: none;
+            outline: none;
+            border-bottom: .2em solid #E91E63;
+            background: rgba(#E91E63, .2);
+            border-radius: .2em .2em 0 0;
+            padding: .4em;
+            color: #E91E63;
+            padding-top: 20%;
+        }
+        #file-name[type=text] {
+            appearance: none;
+            border: none;
+            outline: none;
+            background: rgba(#E91E63, .2);
+            color: #E91E63;
+            padding-top: 20%;
+        }
+
+        #myCanvas{
+                border:1px solid #d3d3d3;
+                position: absolute;
+                left: 40%;
+                top:  30%;
+                width: 50%;
+        }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>Write Code HERE</h1>
+        <h1  id="coin" class="coin">Your Coins: </h1>
+<textarea id="asm-text" name="asm-text" rows="40" cols="50">
+; COIN COLLECTOR PLUS  
+
+.const MOVE 0xE000 ; w
+.const ROTATE_LEFT 0xE001  ; w
+.const ROTATE_RIGHT 0xE002 ; w
+.const PLAYER_X 0xA000  ; r
+.const PLAYER_Y 0xA001  ; r
+.const PLAYER_DIRECTION 0xA002 ; r
+.const NEAREST_COIN 0xA003  ; r
+.const NEAREST_COIN_X 0xA004 ; r
+.const NEAREST_COIN_Y 0xA005 ; r
+.const NEAREST_ENEMY 0xA006 ; r
+.const NEAREST_ENEMY_X 0xA007 ; r
+.const NEAREST_ENEMY_Y 0xA008 ; r
+.const COIN_COUNT 0xA009 ; r
+.const RANDOM 0xA00A ; r 
+
+!main 
+    str [MOVE], rZ ; Move Forwards 
+    inc rA 
+    cmp rA, 3 
+    je  !rotate_left 
+    jmp !main 
+        
+!rotate_left 
+    set rA, 0 
+    str [ROTATE_LEFT], rZ ; Rotate Left
+    jmp !main
+
+
+; INSTRUCTIONS 
+; Write a teenyAT assembly program to get the 
+; most amount of coins possible!
+
+; NEAREST_ENEMY returns the distance to 
+; the closest enemy 
+
+; After calling NEAREST_ENEMY the x and y 
+; coordinates are stored and can be called using
+; NEAREST_ENEMY_X & NEAREST_ENEMY_Y 
+
+; NEAREST_COIN returns the distance to 
+; the closest coin 
+
+; After calling NEAREST_COIN the x and y 
+; coordinates are stored and can be called using
+; NEAREST_COIN_X & NEAREST_COIN_Y
+
+; PLAYER_DIRECTION returns a number 0-3
+; 0 is down
+; 1 is left
+; 2 is up
+; 3 is right
+
+; RANDOM returns a number 0 - 0xFFFF
+
+
+</textarea>
+        <div class="right-align">
+            <button id="input-button" onclick="send_to_server()">Send To Robot</button><br>
+        </div>
+        <canvas id="myCanvas" width="400" height="400" >
+            Your browser does not support the HTML canvas tag.</canvas>
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+        <script src="/client/main.js"></script>
+        <script src="/client/assemble.js"></script>
+    </body>
+
+</html>
+

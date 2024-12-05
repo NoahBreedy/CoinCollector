@@ -1,0 +1,16 @@
+{
+  "name": "coincollector",
+  "version": "1.0.0",
+  "description": "teenyat asm online showcase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Noah Breedy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.7.5"
+  }
+}
