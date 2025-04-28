@@ -226,28 +226,36 @@ function bus_read(t,addr){
       result.data = t.extra_data.dir;
       break;
     case NEAREST_COIN:
-        const nearest = getNearestCoin(MAP_DATA,t.extra_data.x,t.extra_data.y);
-        t.extra_data.nearest_coin_x = nearest.x;
-        t.extra_data.nearest_coin_y = nearest.y;
+        var nearest_coin = getNearestCoin(MAP_DATA,t.extra_data.x,t.extra_data.y);
+        t.extra_data.nearest_coin_x = nearest_coin.x;
+        t.extra_data.nearest_coin_y = nearest_coin.y;
         result.data = nearest.dist;
         break;
     case NEAREST_COIN_X:
+          var nearest_coin = getNearestCoin(MAP_DATA,t.extra_data.x,t.extra_data.y);
+          t.extra_data.nearest_coin_x = nearest_coin.x;
           result.data = t.extra_data.nearest_coin_x;
           break;
     case NEAREST_COIN_Y:
+          var nearest_coin = getNearestCoin(MAP_DATA,t.extra_data.x,t.extra_data.y);
+          t.extra_data.nearest_coin_y = nearest_coin.y;
           result.data = t.extra_data.nearest_coin_y;
           break;
     case NEAREST_ENEMY:
-            const nearest_enemy = getNearestEnemy(MAP_DATA,t.extra_data.x,t.extra_data.y,t.extra_data.id);
-            console.log(nearest_enemy)
+            var nearest_enemy = getNearestEnemy(MAP_DATA,t.extra_data.x,t.extra_data.y,t.extra_data.id);
+            // console.log(nearest_enemy)
             t.extra_data.nearest_enemy_x = nearest_enemy.x;
             t.extra_data.nearest_enemy_y = nearest_enemy.y;
             result.data = nearest_enemy.dist;
             break;
     case NEAREST_ENEMY_X:
+              var nearest_enemy = getNearestEnemy(MAP_DATA,t.extra_data.x,t.extra_data.y,t.extra_data.id);
+              t.extra_data.nearest_enemy_x = nearest_enemy.x;
               result.data = t.extra_data.nearest_enemy_x;
               break;
     case NEAREST_ENEMY_Y:
+            var nearest_enemy = getNearestEnemy(MAP_DATA,t.extra_data.x,t.extra_data.y,t.extra_data.id);
+            t.extra_data.nearest_enemy_y = nearest_enemy.y;
             result.data = t.extra_data.nearest_enemy_y;
             break;
     case COIN_COUNT:
