@@ -208,6 +208,7 @@ function TeenyAT(){
         }
  
         this.inc_pc();
+    
         //console.log(opcode,teeny,reg1,reg2,immed);
         //console.log(equals,less,greater);
         switch(opcode){
@@ -255,7 +256,7 @@ function TeenyAT(){
           break;
           case TNY_OPCODE_PSH:{
              this.reg[TNY_REG_SP].u.value &= TNY_MAX_RAM_ADDRESS;
-             this.ram[this.reg[TNY_REG_SP].u.value].u = new BitManip.UINT16(BitManip.add(this.reg[reg2].s,immed.s));
+             this.ram[this.reg[TNY_REG_SP].u.value] = {u:new BitManip.UINT16(BitManip.add(this.reg[reg1].s,immed.s)) , s:new BitManip.INT16(BitManip.add(this.reg[reg1].s,immed.s))};
              // Decrement SP
              this.reg[TNY_REG_SP].u = new BitManip.UINT16(BitManip.sub(this.reg[TNY_REG_SP].u,new BitManip.UINT16(1)));
              this.reg[TNY_REG_SP].u.value &= TNY_MAX_RAM_ADDRESS;
@@ -295,8 +296,8 @@ function TeenyAT(){
           break;
           case TNY_OPCODE_CAL: {
             this.reg[TNY_REG_SP].u.value &= TNY_MAX_RAM_ADDRESS;
-            this.ram[this.reg[TNY_REG_SP].u.value] = this.reg[TNY_REG_PC];
-            // Decrement SP
+            // need to make this a copy of the PC everything is javascript is a reference
+            this.ram[this.reg[TNY_REG_SP].u.value] =  {u:new BitManip.UINT16(this.reg[TNY_REG_PC].u.value) , s:new BitManip.INT16(this.reg[TNY_REG_PC].s.value)};
             this.reg[TNY_REG_SP].u = new BitManip.UINT16(BitManip.sub(this.reg[TNY_REG_SP].u,new BitManip.UINT16(1)));
             this.reg[TNY_REG_SP].u.value &= TNY_MAX_RAM_ADDRESS;
             this.set_pc(BitManip.add(this.reg[reg2].s,immed.s));
@@ -394,7 +395,7 @@ function TeenyAT(){
           }
           break;
           case TNY_OPCODE_ROT: {
-             // Arnt the value of modulos always positive?
+             // Arnt the value of modulos always positive? (yes for javascript sadly )
           }
           break;
           case TNY_OPCODE_NEG:{
