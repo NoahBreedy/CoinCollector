@@ -44,6 +44,9 @@ let MAP_DATA = [];
 let COINS_IN_GAME = 0;
 let MAX_COINS_IN_GAME = 20;
 
+/**
+ *   Function to move a single player forward in the direction they are facing 
+ **/
 function moveForward(obj){
 
       MAP_DATA[obj.x][obj.y] = 0;
@@ -88,6 +91,9 @@ function moveForward(obj){
     MAP_DATA[obj.x][obj.y] = obj.id;
 }
 
+/**
+ *   Bounce hit player in the direction of the instance player
+ **/
 function moveHitPlayer(id,dir_x,dir_y){
     if(TEENYATS[id].extra_data.coin_count > 0){
         TEENYATS[id].extra_data.coin_count--;
@@ -136,7 +142,9 @@ function getNearestEnemy(array,x,y,my_id){
    return { x: nearestRow, y: nearestCol, dist: minDistance };
 }
 
-
+/**
+ *   Constructor function to hold player information 
+ **/
 function Player(x,y,dir,id){
       this.x = x;
       this.y = y;
