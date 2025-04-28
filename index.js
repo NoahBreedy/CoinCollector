@@ -1,7 +1,7 @@
 //Set Up express and create an Instance
 const express = require('express');
 const app = express();
-const TeenyAT=  require('./teenyAT.js');
+const TeenyAT = require('./teenyAT.js');
 
 //Create http server and automatically listen in on any open port
 const serv = require('http').Server(app);
